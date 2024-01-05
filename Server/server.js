@@ -8,7 +8,7 @@ const userRouter = require("./Routers/router")
 const port = process.env.PORT;
 
 app.use(cors({
-    origin: "https://darling-raindrop-60b36b.netlify.app",
+    origin: "*",
     credentials: true
 }));
 app.use(express.json());
