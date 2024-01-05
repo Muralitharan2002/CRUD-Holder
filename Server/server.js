@@ -8,7 +8,7 @@ const userRouter = require("./Routers/router")
 const port = process.env.PORT;
 
 app.use(cors({
-    origin: "*",
+    origin: "https://holder.onrender.com",
     credentials: true
 }));
 app.use(express.json());
