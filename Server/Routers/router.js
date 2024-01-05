@@ -148,7 +148,10 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'strict'
+                                sameSite: 'strict',
+                                path: '/',
+                                domain: ".darling-raindrop-60b36b.netlify.app"
+
                             });
                             res.json({ status: "success", message: "Login successfully" });
                         } else {
@@ -187,7 +190,9 @@ router.post("/Adminlogin", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'strict'
+                                sameSite: 'strict',
+                                path: "/",
+                                domain: ".darling-raindrop-60b36b.netlify.app"
                             });
                             res.json({ status: "success", message: "Login successfully" });
                         } else {
