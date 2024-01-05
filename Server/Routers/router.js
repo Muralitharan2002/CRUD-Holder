@@ -150,7 +150,7 @@ router.post("/login", async (req, res) => {
                                 secure: true,
                                 sameSite: 'strict',
                                 path: '/',
-                                domain: ".darling-raindrop-60b36b.netlify.app"
+                                domain: "https://darling-raindrop-60b36b.netlify.app"
 
                             });
                             res.json({ status: "success", message: "Login successfully" });
@@ -192,7 +192,7 @@ router.post("/Adminlogin", async (req, res) => {
                                 secure: true,
                                 sameSite: 'strict',
                                 path: "/",
-                                domain: ".darling-raindrop-60b36b.netlify.app"
+                                domain: "https://darling-raindrop-60b36b.netlify.app"
                             });
                             res.json({ status: "success", message: "Login successfully" });
                         } else {
