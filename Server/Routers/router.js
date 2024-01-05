@@ -29,7 +29,7 @@ router.post("/AdminCreate", async (req, res) => {
                         Password: hashPassword,
                         Role: "Admin",
                         isVerified: false,
-                        ExpireAt: new Date(Date.now() + 6 * 60 * 60 * 1000)
+                        ExpireAt: new Date(Date.now() + 2 * 60 * 60 * 1000)
                     });
                     const token = crypto.randomBytes(32).toString("hex");
                     console.log(token);
@@ -73,7 +73,7 @@ router.post("/create", async (req, res) => {
             Password: hashPassword,
             Role: "User",
             isVerified: false,
-            ExpireAt: new Date(Date.now() + 1 * 60 * 60 * 1000)
+            ExpireAt: new Date(Date.now() + 2 * 60 * 60 * 1000)
         });
 
         const token = crypto.randomBytes(32).toString("hex");
