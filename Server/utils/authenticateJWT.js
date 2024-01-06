@@ -37,7 +37,7 @@ const authenticateAdminJWT = (req, res, next) => {
                     console.log("jwtAuthenticate verification failed", err);
                     return res.json({ message: "jwtAuthenticate verification failed" });
                 } else {
-                    req.user = data;
+                    req.admin = data;
                     next();
                 }
             })

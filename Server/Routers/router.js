@@ -375,7 +375,7 @@ router.post("/update", authenticateJWT, async (req, res) => {
 router.post("/userlogout", authenticateJWT, async (req, res) => {
 
     try {
-        res.clearCookie('UserToken');
+        res.clearCookie("UserToken");
         res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
@@ -386,7 +386,7 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
 router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
 
     try {
-        res.clearCookie('AdminToken');
+        res.clearCookie("AdminToken");
         res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
@@ -547,16 +547,22 @@ router.post("/passwordChange/:Role/:_id/:token", async (req, res) => {
 
 
 router.get("/AdminFetch", authenticateAdminJWT, async (req, res) => {
-
-
+    const ID = req.admin.id;
     try {
-        const Users = await signup.find({});
-        const VerifiedUser = await signup.countDocuments({ isVerified: true });
-        const unVerifiedUser = await signup.countDocuments({ isVerified: false });
-        const UpdatedUser = await Profile.find();
 
-        console.log("Datas", Users)
-        res.send({ Users, VerifiedUser, unVerifiedUser, UpdatedUser })
+        const Admin = await AdminModel.findOne({ _id: ID })
+        if (Admin) {
+            const Users = await signup.find({});
+            const VerifiedUser = await signup.countDocuments({ isVerified: true });
+            const unVerifiedUser = await signup.countDocuments({ isVerified: false });
+            const UpdatedUser = await Profile.find();
+
+            console.log("Datas", Users)
+            return res.send({ Users, VerifiedUser, unVerifiedUser, UpdatedUser })
+        } else {
+            return res.json({ message: "Invalid Admin for fetching" })
+        }
+
     } catch (err) {
         console.log("Admin Fetching process failed", err)
         res.status(500).json({ status: "error", message: "Internal server Error" })
@@ -566,12 +572,19 @@ router.get("/AdminFetch", authenticateAdminJWT, async (req, res) => {
 
 router.delete("/AdminDelete/:Name/:userID", authenticateAdminJWT, async (req, res) => {
     const ID = req.params.userID;
+    const AdminID = req.admin.id;
 
     try {
-        await signup.findByIdAndDelete({ _id: ID })
-        await Profile.findOneAndDelete({ UserID: ID })
-        await PasswordReset.findOneAndDelete({ UserID: ID })
-        res.status(200).json({ status: "success", message: "User Deleted" })
+        const Admin = await AdminModel.findOne({ _id: AdminID })
+        if (Admin) {
+            await signup.findByIdAndDelete({ _id: ID })
+            await Profile.findOneAndDelete({ UserID: ID })
+            await PasswordReset.findOneAndDelete({ UserID: ID })
+            return res.status(200).json({ status: "success", message: "User Deleted" })
+        } else {
+            return res.json({ message: "Invalid Admin for Deletion" })
+        }
+
     } catch (err) {
         console.log("Admin deleted action failed", err)
         res.status(500).json({ status: "error", message: "Internal server Error" })
