@@ -89,7 +89,7 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
 
     },
-    BloodGrp: {
+    BloodGroup: {
         type: String,
 
     },

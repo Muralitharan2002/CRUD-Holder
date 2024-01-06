@@ -250,7 +250,7 @@ router.post("/update", authenticateJWT, async (req, res) => {
     const ID = req.user.id;
 
 
-    const { Name, Email, FatherName, MotherName, Gender, DOB, Mobile, MartialStatus, BloodGrp,
+    const { Name, Email, FatherName, MotherName, Gender, DOB, Mobile, MartialStatus, BloodGroup,
         ACADEMICS: {
             YearPercentage1,
             UniversityInstituteName1,
@@ -284,7 +284,7 @@ router.post("/update", authenticateJWT, async (req, res) => {
         const found = await Profile.findOne({ UserID: ID });
         if (found) {
             await Profile.findOneAndUpdate({ UserID: ID }, {
-                Name, Email, FatherName, MotherName, Gender, DOB, Mobile, MartialStatus, BloodGrp,
+                Name, Email, FatherName, MotherName, Gender, DOB, Mobile, MartialStatus, BloodGroup,
                 ACADEMICS: {
                     YearPercentage1,
                     UniversityInstituteName1,
@@ -324,7 +324,7 @@ router.post("/update", authenticateJWT, async (req, res) => {
                 })
         } else {
             const data = new Profile({
-                Name, Email, FatherName, MotherName, Gender, DOB, Mobile, MartialStatus, BloodGrp,
+                Name, Email, FatherName, MotherName, Gender, DOB, Mobile, MartialStatus, BloodGroup,
                 ACADEMICS: {
                     YearPercentage1,
                     UniversityInstituteName1,
