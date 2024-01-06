@@ -15,7 +15,7 @@ function App() {
 
   const BrowserIsLogin = sessionStorage.getItem("isLogin") === "true"
   const BrowserIsAdmin = sessionStorage.getItem("isAdmin") === "true"
-  console.log(BrowserIsLogin)
+  // console.log(BrowserIsLogin)
   const [isLogin, setIsLogin] = useState(BrowserIsLogin)
   const [isAdmin, setIsAdmin] = useState(BrowserIsAdmin)
 

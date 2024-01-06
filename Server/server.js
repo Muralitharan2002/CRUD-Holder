@@ -8,7 +8,7 @@ const userRouter = require("./Routers/router")
 const port = process.env.PORT;
 
 app.use(cors({
-    origin: "https://holder-two.vercel.app",
+    origin: ["https://holder-two.vercel.app", "http://localhost:3000"],
     credentials: true
 }));
 app.use(express.json());

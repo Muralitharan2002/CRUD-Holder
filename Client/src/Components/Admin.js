@@ -65,7 +65,7 @@ function Admin({ onAdminLogout }) {
 
 
     const logout = () => {
-        axios.post("https://crud-holder.onrender.com/router/userlogout", {}, { withCredentials: true })
+        axios.post("https://crud-holder.onrender.com/router/Adminlogout", {}, { withCredentials: true })
             .then((result) => {
                 if (result.data.status === "success") {
                     onAdminLogout();

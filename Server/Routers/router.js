@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { sendEmail, ResetPassMail } = require("../utils/sendEmail");
-const authenticateJWT = require("../utils/authenticateJWT");
+const { authenticateJWT, authenticateAdminJWT } = require("../utils/authenticateJWT");
 const { ObjectId } = require('mongodb');
 
 
@@ -15,7 +15,8 @@ router.post("/AdminCreate", async (req, res) => {
 
         if (adminKey === process.env.ADMIN_KEY) {
             const hashPassword = await bcrypt.hash(Password, Number(process.env.SALTROUND));
-            const person = await AdminModel.findOne({ Email: Email });
+            const email = Email.toLowerCase();
+            const person = await AdminModel.findOne({ Email: email });
 
             if (person) {
                 console.log("Admin Already Registered")
@@ -24,7 +25,7 @@ router.post("/AdminCreate", async (req, res) => {
                 try {
                     const newAdmin = new AdminModel({
                         AdminKey: adminKey,
-                        Email: Email,
+                        Email: email,
                         Password: hashPassword,
                         Role: "Admin",
                         isVerified: false,
@@ -61,13 +62,14 @@ router.post("/create", async (req, res) => {
     const { Name, Email, Password } = req.body;
 
     const hashPassword = await bcrypt.hash(Password, Number(process.env.SALTROUND))
-    const person = await signup.findOne({ Email })
+    const email = Email.toLowerCase();
+    const person = await signup.findOne({ email })
     if (person) {
         return res.status(200).json({ status: "Exist", message: "founded" });
     } else {
         const newUser = new signup({
             Name,
-            Email,
+            Email: email,
             Password: hashPassword,
             Role: "User",
             isVerified: false,
@@ -184,7 +186,7 @@ router.post("/Adminlogin", async (req, res) => {
                     if (result) {
                         if (userData.isVerified) {
                             const JWTtoken = jwt.sign({ id: userData._id }, process.env.SECRETE_KEY);
-                            res.cookie("UserToken", JWTtoken, {
+                            res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
                                 sameSite: 'strict',
@@ -381,10 +383,10 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
 })
 
 
-router.post("/Adminlogout", authenticateJWT, async (req, res) => {
+router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
 
     try {
-        res.clearCookie('UserToken');
+        res.clearCookie('AdminToken');
         res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
@@ -544,7 +546,7 @@ router.post("/passwordChange/:Role/:_id/:token", async (req, res) => {
 })
 
 
-router.get("/AdminFetch", authenticateJWT, async (req, res) => {
+router.get("/AdminFetch", authenticateAdminJWT, async (req, res) => {
 
 
     try {
@@ -562,7 +564,7 @@ router.get("/AdminFetch", authenticateJWT, async (req, res) => {
 })
 
 
-router.delete("/AdminDelete/:Name/:userID", authenticateJWT, async (req, res) => {
+router.delete("/AdminDelete/:Name/:userID", authenticateAdminJWT, async (req, res) => {
     const ID = req.params.userID;
 
     try {

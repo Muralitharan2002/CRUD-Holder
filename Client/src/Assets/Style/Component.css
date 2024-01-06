@@ -221,8 +221,8 @@ input[type="checkbox"] {
   .container-login,
   .container-signup {
     width: 100%;
-    height: 100vh;
-    border: none;
+    /* height: 100vh; */
+    /* border: none; */
     overflow: visible;
   }
 
@@ -255,7 +255,8 @@ input[type="checkbox"] {
     width: 270px;
   }
   .eye {
-    right: 65px;
+    right: 30px;
+    font-size: 17px;
   }
   .google-logo {
     left: 40px;
@@ -270,6 +271,15 @@ input[type="checkbox"] {
   }
   .line {
     width: 250px;
+  }
+  #Email-msg,
+  #Password-msg,
+  #Name-msg {
+    left: 25px;
+    font: bold 11px var(--Main-title);
+  }
+  .link1 {
+    font-size: 12px;
   }
 }
 
@@ -302,6 +312,7 @@ input[type="checkbox"] {
   height: 100vh;
   transition: all 0.5s;
   z-index: 9999;
+  overflow: hidden;
 }
 
 .top-head {
@@ -317,7 +328,6 @@ input[type="checkbox"] {
 
 .logo-name {
   margin-left: 20px;
-  overflow: hidden;
 }
 .menu-item {
   transition: all 0.3s ease-in-out;
@@ -327,7 +337,6 @@ input[type="checkbox"] {
   text-decoration: none;
   font: 23px var(--Main-title);
   color: #4070f4;
-  overflow: hidden;
 }
 .icon {
   display: flex;
@@ -350,8 +359,18 @@ main {
   .sidebar {
     width: 50px !important;
   }
-  .menu-item:hover {
-    overflow: visible;
+}
+@media (max-width: 450px) {
+  .sidebar {
+    width: 35px !important;
+  }
+  .top-head {
+    padding: 15px 4px;
+    font-size: 23px;
+  }
+  .menu-item {
+    padding: 10px 4px;
+    font-size: 20px;
   }
 }
 
@@ -526,6 +545,12 @@ option {
   .edit-icon {
     font-size: 20px;
     color: #0b2948;
+  }
+  #error {
+    font-size: 11px;
+  }
+  .field-name {
+    font-size: 17px;
   }
 }
 
