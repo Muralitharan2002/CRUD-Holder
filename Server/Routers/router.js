@@ -189,7 +189,7 @@ router.post("/Adminlogin", async (req, res) => {
                             res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'strict',
+                                sameSite: 'none',
                                 path: "/"
                             });
                             res.json({ status: "success", message: "Login successfully" });
