@@ -11,7 +11,6 @@ const { ObjectId } = require('mongodb');
 
 router.post("/AdminCreate", async (req, res) => {
     const { adminKey, Email, Password } = req.body;
-
     try {
 
         if (adminKey === process.env.ADMIN_KEY) {
@@ -62,7 +61,6 @@ router.post("/create", async (req, res) => {
     const { Name, Email, Password } = req.body;
 
     const hashPassword = await bcrypt.hash(Password, Number(process.env.SALTROUND))
-
     const person = await signup.findOne({ Email })
     if (person) {
         return res.status(200).json({ status: "Exist", message: "founded" });
@@ -148,7 +146,7 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'strict',
+                                sameSite: "none",
                                 path: '/'
 
                             });
