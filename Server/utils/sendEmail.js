@@ -13,7 +13,7 @@ const sendEmail = async (Role, email, token, _id) => {
         }
     });
 
-    const verificationLink = `https://holder-omega.vercel.app/EmailVerification/${Role}/${_id}/${token}`;
+    const verificationLink = `https://crud-holder.vercel.app/EmailVerification/${Role}/${_id}/${token}`;
     const mailOption = {
         from: process.env.USER,
         to: email,
@@ -44,7 +44,7 @@ const ResetPassMail = async (Role, email, token, _id) => {
         }
     })
 
-    const verificationLink = `https://holder-omega.vercel.app/ResetPassword/${Role}/${_id}/${token}`;
+    const verificationLink = `https://crud-holder.vercel.app/ResetPassword/${Role}/${_id}/${token}`;
     const MailOption = {
         from: process.env.USER,
         to: email,
