@@ -376,7 +376,8 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
     try {
         const user = await signup.findOne({ _id: ID })
         if (user) {
-            res.clearCookie("UserToken");
+            res.cookie("UserToken", null, { expires: new Date(0), httpOnly: true, sameSite: "none", secure: true });
+
             return res.json({ status: "success" });
         }
         return res.json({ status: "error" });
@@ -394,7 +395,7 @@ router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
     try {
         const admin = await AdminModel.findOne({ _id: ID })
         if (admin) {
-            res.clearCookie("AdminToken");
+            res.cookie("AdminToken", null, { expires: new Date(0), httpOnly: true, sameSite: "none", secure: true });
             return res.json({ status: "success" });
         }
         return res.json({ status: "error" });
