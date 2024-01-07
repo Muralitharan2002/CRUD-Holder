@@ -148,7 +148,6 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                domain: ".onrender.com"
 
                             });
                             res.json({ status: "success", message: "Login successfully" });
@@ -188,7 +187,7 @@ router.post("/Adminlogin", async (req, res) => {
                             res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                domain: ".onrender.com"
+
                             });
                             res.json({ status: "success", message: "Login successfully" });
                         } else {
@@ -373,15 +372,16 @@ router.post("/update", authenticateJWT, async (req, res) => {
 router.post("/userlogout", authenticateJWT, async (req, res) => {
     const ID = req.user.id;
     try {
-        const User = await signup.findOne({ _id: ID })
-        if (User) {
+        const user = await signup.findOne({ _id: ID })
+        if (user) {
             res.clearCookie("UserToken");
-            res.json({ status: "success" })
+            return res.json({ status: "success" });
         }
         return res.json({ status: "error" });
         // res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
+        return res.status(500).json({ status: "error", message: "Internal Server Error" });
     }
 })
 
@@ -390,8 +390,8 @@ router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
     const ID = req.user.id;
 
     try {
-        const Admin = await AdminModel.findOne({ _id: ID })
-        if (Admin) {
+        const admin = await AdminModel.findOne({ _id: ID })
+        if (admin) {
             res.clearCookie("AdminToken");
             return res.json({ status: "success" });
         }
@@ -399,6 +399,7 @@ router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
 
     } catch (err) {
         console.log("error while logout", err);
+        return res.status(500).json({ status: "error", message: "Internal Server Error" });
     }
 })
 
