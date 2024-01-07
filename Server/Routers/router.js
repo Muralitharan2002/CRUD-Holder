@@ -386,7 +386,7 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
 router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
 
     try {
-        res.clearCookie("AdminToken");
+        res.cookie("AdminToken", null, { expires: new Date(0), httpOnly: true })
         res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
