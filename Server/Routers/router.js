@@ -186,7 +186,7 @@ router.post("/Adminlogin", async (req, res) => {
                     if (result) {
                         if (userData.isVerified) {
                             const JWTtoken = jwt.sign({ id: userData._id }, process.env.ADMIN_SECRETE_KEY);
-                            res.cookie("AdminToken", JWTtoken, {
+                            res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
                                 sameSite: 'none',
@@ -373,10 +373,14 @@ router.post("/update", authenticateJWT, async (req, res) => {
 
 
 router.post("/userlogout", authenticateJWT, async (req, res) => {
-
+    const ID = req.user.id;
     try {
-        res.clearCookie("UserToken");
-        res.json({ status: "success" });
+        const User = await signup.findOne({ _id: ID })
+        if (User) {
+            return res.clearCookie("UserToken").json({ status: "success" });
+        }
+        return res.json({ status: "error" });
+        // res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
     }
@@ -384,10 +388,16 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
 
 
 router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
+    const ID = req.user.id;
 
     try {
-        res.clearCookie("AdminToken");
-        res.json({ status: "success" });
+        const Admin = await AdminModel.findOne({ _id: ID })
+        if (Admin) {
+            return res.clearCookie("UserToken").json({ status: "success" });
+            // res.json({ status: "success" });
+        }
+        return res.json({ status: "error" });
+
     } catch (err) {
         console.log("error while logout", err);
     }
