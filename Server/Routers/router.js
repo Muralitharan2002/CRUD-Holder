@@ -148,6 +148,7 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
+                                sameSite: "strict"
 
                             });
                             res.json({ status: "success", message: "Login successfully" });
@@ -187,6 +188,7 @@ router.post("/Adminlogin", async (req, res) => {
                             res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
+                                sameSite: "strict"
 
                             });
                             res.json({ status: "success", message: "Login successfully" });
