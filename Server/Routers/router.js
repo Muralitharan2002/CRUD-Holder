@@ -148,7 +148,7 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: "lax",
+                                sameSite: "none",
                                 path: '/'
 
                             });
@@ -189,7 +189,7 @@ router.post("/Adminlogin", async (req, res) => {
                             res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'lax',
+                                sameSite: 'none',
                                 path: "/"
                             });
                             res.json({ status: "success", message: "Login successfully" });
@@ -547,7 +547,7 @@ router.post("/passwordChange/:Role/:_id/:token", async (req, res) => {
 
 
 router.get("/AdminFetch", authenticateAdminJWT, async (req, res) => {
-    const ID = req.admin.id;
+    const ID = req.user.id;
     try {
 
         const Admin = await AdminModel.findOne({ _id: ID })
@@ -572,7 +572,7 @@ router.get("/AdminFetch", authenticateAdminJWT, async (req, res) => {
 
 router.delete("/AdminDelete/:Name/:userID", authenticateAdminJWT, async (req, res) => {
     const ID = req.params.userID;
-    const AdminID = req.admin.id;
+    const AdminID = req.user.id;
 
     try {
         const Admin = await AdminModel.findOne({ _id: AdminID })
