@@ -32,7 +32,7 @@ const authenticateAdminJWT = (req, res, next) => {
         console.log(cookieToken)
 
         if (cookieToken) {
-            jwt.verify(cookieToken, process.env.SECRETE_KEY, (err, data) => {
+            jwt.verify(cookieToken, process.env.ADMIN_SECRETE_KEY, (err, data) => {
                 if (err) {
                     console.log("jwtAuthenticate verification failed", err);
                     return res.json({ message: "jwtAuthenticate verification failed" });
