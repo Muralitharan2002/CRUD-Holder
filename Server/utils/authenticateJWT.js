@@ -28,7 +28,7 @@ const authenticateJWT = (req, res, next) => {
 
 const authenticateAdminJWT = (req, res, next) => {
     try {
-        const cookieToken = req.cookies.UserToken;
+        const cookieToken = req.cookies.AdminToken;
         console.log(cookieToken)
 
         if (cookieToken) {

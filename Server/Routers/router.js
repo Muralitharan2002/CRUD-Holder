@@ -148,8 +148,7 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: "none",
-                                path: '/'
+                                domain: ".onrender.com"
 
                             });
                             res.json({ status: "success", message: "Login successfully" });
@@ -186,11 +185,10 @@ router.post("/Adminlogin", async (req, res) => {
                     if (result) {
                         if (userData.isVerified) {
                             const JWTtoken = jwt.sign({ id: userData._id }, process.env.ADMIN_SECRETE_KEY);
-                            res.cookie("UserToken", JWTtoken, {
+                            res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'none',
-                                path: "/"
+                                domain: ".onrender.com"
                             });
                             res.json({ status: "success", message: "Login successfully" });
                         } else {
@@ -377,7 +375,8 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
     try {
         const User = await signup.findOne({ _id: ID })
         if (User) {
-            return res.clearCookie("UserToken").json({ status: "success" });
+            res.clearCookie("UserToken");
+            res.json({ status: "success" })
         }
         return res.json({ status: "error" });
         // res.json({ status: "success" });
@@ -393,8 +392,8 @@ router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
     try {
         const Admin = await AdminModel.findOne({ _id: ID })
         if (Admin) {
-            return res.clearCookie("UserToken").json({ status: "success" });
-            // res.json({ status: "success" });
+            res.clearCookie("AdminToken");
+            return res.json({ status: "success" });
         }
         return res.json({ status: "error" });
 
