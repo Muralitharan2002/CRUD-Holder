@@ -148,7 +148,7 @@ router.post("/login", async (req, res) => {
                             res.cookie("UserToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: "none",
+                                sameSite: "lax",
                                 path: '/'
 
                             });
@@ -189,7 +189,7 @@ router.post("/Adminlogin", async (req, res) => {
                             res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: 'none',
+                                sameSite: 'lax',
                                 path: "/"
                             });
                             res.json({ status: "success", message: "Login successfully" });
@@ -386,7 +386,7 @@ router.post("/userlogout", authenticateJWT, async (req, res) => {
 router.post("/Adminlogout", authenticateAdminJWT, async (req, res) => {
 
     try {
-        res.cookie("AdminToken", null, { expires: new Date(0), httpOnly: true })
+        res.clearCookie("AdminToken");
         res.json({ status: "success" });
     } catch (err) {
         console.log("error while logout", err);
