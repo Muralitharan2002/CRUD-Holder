@@ -41,7 +41,6 @@ function Login({ onUserLogin, onAdminLogin }) {
                 await axios.post("https://crud-holder.onrender.com/router/Adminlogin", { Email, Password }, { withCredentials: true })
                     .then((res) => {
                         if (res.data.status === "success") {
-                            document.clearAllCookie();
                             onAdminLogin()
                             navigate("/Admin");
                         } else if (res.data.status === "warning") {
