@@ -38,7 +38,7 @@ function Login({ onUserLogin, onAdminLogin }) {
             setLoading(true)
 
             if (isAdmin) {
-                await axios.post("https://crud-holder.onrender.com/router/Adminlogin", { Email, Password }, { withCredentials: true })
+                await axios.post("http://localhost:3800/router/Adminlogin", { Email, Password }, { withCredentials: true })
                     .then((res) => {
                         if (res.data.status === "success") {
                             onAdminLogin()
@@ -62,7 +62,7 @@ function Login({ onUserLogin, onAdminLogin }) {
                         setLoading(false)
                     })
             } else {
-                await axios.post("https://crud-holder.onrender.com/router/login", { Email, Password }, { withCredentials: true })
+                await axios.post("http://localhost:3800/router/login", { Email, Password }, { withCredentials: true })
                     .then((res) => {
                         if (res.data.status === "success") {
                             onUserLogin();
@@ -100,7 +100,7 @@ function Login({ onUserLogin, onAdminLogin }) {
         if (isAdmin) {
             if (Object.keys(Error).length === 0) {
                 setLoading(true)
-                await axios.post("https://crud-holder.onrender.com/router/AdminForgotPassword", { Email })
+                await axios.post("http://localhost:3800/router/AdminForgotPassword", { Email })
                     .then((res) => {
                         if (res.data.status === "success") {
                             toast.success("A Link sent to your Mail for Reset Password");
@@ -123,7 +123,7 @@ function Login({ onUserLogin, onAdminLogin }) {
         } else {
             if (Object.keys(Error).length === 0) {
                 setLoading(true)
-                await axios.post("https://crud-holder.onrender.com/router/ForgotPassword", { Email })
+                await axios.post("http://localhost:3800/router/ForgotPassword", { Email })
                     .then((res) => {
                         if (res.data.status === "success") {
                             toast.success("A Link sent to your Mail for Reset Password");
