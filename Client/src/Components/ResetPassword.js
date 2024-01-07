@@ -30,7 +30,7 @@ function ResetPassword() {
         if (Object.keys(Error).length === 0) {
             setLoading(true)
             try {
-                axios.post(`https://crud-holder.onrender.com/router/passwordChange/${Role}/${_id}/${token}`, { newPassword, ConfirmPassword }, { withCredentials: true })
+                axios.post(`http://localhost:3800/router/passwordChange/${Role}/${_id}/${token}`, { newPassword, ConfirmPassword }, { withCredentials: true })
                     .then((res) => {
                         if (res.data.status === "success") {
                             toast.success("Successfully Reset Password")

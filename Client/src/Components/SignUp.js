@@ -36,7 +36,7 @@ function SignUp() {
 
         if (Object.keys(errors).length === 0) {
             setLoading(true)
-            axios.post("https://crud-holder.onrender.com/router/create", { Name, Email, Password })
+            axios.post("http://localhost:3800/router/create", { Name, Email, Password })
                 .then((response) => {
                     if (response.data.status === "Exist") {
                         toast.info("User already exists!");
@@ -68,7 +68,7 @@ function SignUp() {
 
         if (Object.keys(errors).length === 0) {
             setLoading(true)
-            axios.post("https://crud-holder.onrender.com/router/AdminCreate", { adminKey, Email, Password })
+            axios.post("http://localhost:3800/router/AdminCreate", { adminKey, Email, Password })
                 .then((response) => {
                     if (response.data.status === "warning") {
                         toast.info("Admin already exists!");

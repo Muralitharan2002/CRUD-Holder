@@ -71,7 +71,7 @@ function Profile({ onUserLogout }) {
 
     const fetchData = async () => {
         try {
-            const Userinfo = await axios.get("https://crud-holder.onrender.com/router/fetchData", { withCredentials: true });
+            const Userinfo = await axios.get("http://localhost:3800/router/fetchData", { withCredentials: true });
             if (Userinfo.data) {
                 setData(Userinfo.data);
             } else {
@@ -83,7 +83,7 @@ function Profile({ onUserLogout }) {
     };
     const fetchData2 = async () => {
         try {
-            const Userinfo = await axios.get("https://crud-holder.onrender.com/router/fetchData2", { withCredentials: true });
+            const Userinfo = await axios.get("http://localhost:3800/router/fetchData2", { withCredentials: true });
             if (Userinfo.data && Userinfo.data.DOB) {
                 const format = Userinfo.data.DOB;
                 Userinfo.data.DOB = new Date(format).toLocaleDateString();
@@ -99,7 +99,7 @@ function Profile({ onUserLogout }) {
     const UpdateProfile = () => {
 
 
-        axios.post("https://crud-holder.onrender.com/router/update", { ...Data, ...Personel }, { withCredentials: true })
+        axios.post("http://localhost:3800/router/update", { ...Data, ...Personel }, { withCredentials: true })
             .then((res) => {
                 if (res.data.message === "success") {
                     toast.success("Updated Successfully");
@@ -144,7 +144,7 @@ function Profile({ onUserLogout }) {
 
     const logout = () => {
 
-        axios.post("https://crud-holder.onrender.com/router/userlogout", {}, { withCredentials: true })
+        axios.post("http://localhost:3800/router/userlogout", {}, { withCredentials: true })
             .then((result) => {
                 if (result.data.status === "success") {
                     onUserLogout();

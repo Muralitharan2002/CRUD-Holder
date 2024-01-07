@@ -15,7 +15,7 @@ function EmailVerification() {
     useEffect(() => {
         setLoading(true)
         axios
-            .get(`https://crud-holder.onrender.com/router/verify/${Role}/${_id}/${token}`)
+            .get(`http://localhost:3800/router/verify/${Role}/${_id}/${token}`)
             .then((res) => {
                 if (res.data.status === "success") {
                     setemailStatus("Email verified successfully")
