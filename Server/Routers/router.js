@@ -185,7 +185,7 @@ router.post("/Adminlogin", async (req, res) => {
                 .then((result) => {
                     if (result) {
                         if (userData.isVerified) {
-                            const JWTtoken = jwt.sign({ id: userData._id }, process.env.SECRETE_KEY);
+                            const JWTtoken = jwt.sign({ id: userData._id }, process.env.ADMIN_SECRETE_KEY);
                             res.cookie("AdminToken", JWTtoken, {
                                 httpOnly: true,
                                 secure: true,
