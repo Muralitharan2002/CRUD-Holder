@@ -19,7 +19,7 @@ function Admin({ onAdminLogout }) {
 
     const AllUsers = () => {
         setLoading(true)
-        axios.get("http://localhost:3800/router/AdminFetch", { withCredentials: true })
+        axios.get("https://crud-holder.onrender.com/router/AdminFetch", { withCredentials: true })
             .then((res) => {
                 if (res) {
                     setData(res.data);
@@ -40,7 +40,7 @@ function Admin({ onAdminLogout }) {
 
 
     const Delete = (userID, Name, isVerified) => {
-        axios.delete(`http://localhost:3800/router/AdminDelete/${Name}/${userID}`, { withCredentials: true })
+        axios.delete(`https://crud-holder.onrender.com/router/AdminDelete/${Name}/${userID}`, { withCredentials: true })
             .then((result) => {
                 if (result.data.status === "success") {
                     setData((PrevData) => ({
@@ -65,7 +65,7 @@ function Admin({ onAdminLogout }) {
 
 
     const logout = () => {
-        axios.post("http://localhost:3800/router/Adminlogout", {}, { withCredentials: true })
+        axios.post("https://crud-holder.onrender.com/router/Adminlogout", {}, { withCredentials: true })
             .then((result) => {
                 if (result.data.status === "success") {
                     onAdminLogout();
